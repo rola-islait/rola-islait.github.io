@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rola Islait</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF;
+    --paper-2:#FFFFFF;
+    --ink:#20262B;
+    --ink-soft:#5B6369;
+    --gold:#AD7A2E;
+    --gold-soft:#E4C892;
+    --teal:#3C6B67;
+    --border:#E3E3E0;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    font-size:16px;
+    line-height:1.75;
+  }
+  a{color:var(--teal); text-decoration:none; border-bottom:1px solid var(--border);}
+  a:hover{color:var(--gold); border-bottom-color:var(--gold);}
+
+  h1,h2{font-family:'Fraunces', Georgia, serif; font-weight:600; color:var(--ink); margin:0;}
+
+  .page{max-width:1020px; margin:0 auto; padding:0 24px;}
+
+  /* header / top nav */
+  header{border-bottom:1px solid var(--border);}
+  .nav-row{display:flex; align-items:center; justify-content:space-between; padding:22px 0; flex-wrap:wrap; row-gap:10px;}
+  .site-name{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600;}
+  .nav-links{display:flex; gap:22px; flex-wrap:wrap; row-gap:8px;}
+  .nav-links a{color:var(--ink-soft); font-size:0.94rem; border-bottom:none;}
+  .nav-links a:hover{color:var(--ink);}
+  @media (max-width:600px){ .nav-links{gap:14px 18px; font-size:0.9rem;} }
+
+  /* body layout */
+  .layout{display:grid; grid-template-columns:230px 1fr; gap:56px; padding:52px 0 60px;}
+  @media (max-width:760px){ .layout{grid-template-columns:1fr;} }
+
+  /* sidebar */
+  .avatar{
+    width:150px; height:150px; border-radius:50%;
+    border:1.5px solid var(--gold-soft);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; margin-bottom:20px;
+  }
+  .avatar::before{
+    content:""; position:absolute; inset:8px; border-radius:50%;
+    border:1px solid var(--border);
+  }
+  .avatar span{font-family:'Fraunces',serif; font-style:italic; font-size:2.3rem; font-weight:500; color:var(--gold);}
+
+  .side-name{font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; margin-bottom:2px;}
+  .side-role{color:var(--teal); font-weight:500; margin-bottom:18px; font-size:0.96rem;}
+  .side-list{list-style:none; margin:0; padding:0;}
+  .side-list li{display:flex; align-items:center; gap:8px; padding:6px 0; font-size:0.93rem; color:var(--ink-soft); border-top:1px solid var(--border);}
+  .side-list li:first-child{border-top:none;}
+  .side-list li svg{flex:0 0 auto; opacity:0.8; color:var(--gold);}
+  .side-list li a{color:var(--ink-soft); border-bottom:none;}
+  .side-list li a:hover{color:var(--gold);}
+
+  /* main content */
+  main h2{
+    font-size:1.32rem; margin:44px 0 16px;
+    padding-bottom:12px; border-bottom:1px solid var(--border);
+  }
+  main > h2:first-child{margin-top:0;}
+  main p{margin:14px 0; color:var(--ink-soft);}
+  main ul{margin:14px 0; padding-left:20px; color:var(--ink-soft);}
+  main ul li{margin-bottom:10px;}
+  main ul li b{color:var(--ink); font-weight:600;}
+
+  /* leaderboard */
+  .board-row{display:grid; grid-template-columns:1fr 84px; align-items:center; gap:16px; padding:11px 0; border-top:1px solid var(--border);}
+  .board-row:first-of-type{border-top:none;}
+  .board-name{font-size:0.92rem; color:var(--ink);}
+  .board-name .plat{display:block; color:var(--ink-soft); font-size:0.8rem; margin-top:2px;}
+  .board-track{position:relative; height:8px; background:var(--paper-2); border:1px solid var(--border); margin-top:6px;}
+  .board-fill{position:absolute; top:0; left:0; bottom:0; background:linear-gradient(90deg, var(--gold-soft), var(--gold));}
+  .board-pct{font-size:0.9rem; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums;}
+
+  /* timeline */
+  .timeline{position:relative; padding-left:26px; margin-top:18px;}
+  .timeline::before{content:""; position:absolute; left:4px; top:4px; bottom:4px; width:1px; background:var(--border);}
+  .tl-item{position:relative; padding-bottom:26px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:""; position:absolute; left:-26px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--paper); border:2px solid var(--gold);}
+  .tl-date{color:var(--ink-soft); font-size:0.82rem; margin-bottom:3px;}
+  .tl-item b{color:var(--ink); font-size:1.02rem;}
+  .tl-item p{margin:6px 0 0;}
+
+  .exp-line{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
+  .exp-line .role{font-weight:600; color:var(--ink);}
+  .exp-line .dates{color:var(--ink-soft); font-size:0.88rem;}
+
+  /* footer */
+  footer{background:var(--paper-2); border-top:1px solid var(--border); margin-top:20px;}
+  .footer-inner{padding:26px 0; font-size:0.88rem; color:var(--ink-soft);}
+  .footer-inner .row{margin-bottom:8px;}
+  .footer-inner .label{font-weight:600; letter-spacing:0.02em; font-size:0.76rem; color:var(--gold); margin-right:8px;}
+  .footer-inner a{color:var(--ink-soft); border-bottom:none;}
+  .footer-inner a:hover{color:var(--gold);}
+
+  /* small-screen tightening */
+  @media (max-width:480px){
+    .page{padding:0 16px;}
+    .layout{gap:34px; padding:26px 0 44px;}
+    .avatar{width:120px; height:120px;}
+    .avatar span{font-size:1.9rem;}
+    main h2{font-size:1.15rem; margin:32px 0 12px;}
+    .board-row{grid-template-columns:1fr; gap:4px;}
+    .board-pct{text-align:left;}
+    .timeline{padding-left:20px;}
+    .tl-item::before{left:-20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="page nav-row">
+    <div class="site-name">Rola Islait</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#competitions">Competitions</a>
+      <a href="#awards">Awards</a>
+      <a href="#experience">Experience</a>
+      <a href="#cv">CV</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page layout">
+  <aside>
+    <div class="avatar"><span>RI</span></div>
+    <div class="side-name">Rola Islait</div>
+    <div class="side-role">AI Engineer &amp; Researcher</div>
+    <ul class="side-list">
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Jordan
+      </li>
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        <a href="mailto:rola@traingle.ai">Email</a>
+      </li>
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.67H5.67v8.67h2.67zM7 8.5A1.5 1.5 0 1 0 7 5.5a1.5 1.5 0 0 0 0 3zM18.34 18.34v-4.7c0-2.52-1.35-3.7-3.15-3.7-1.45 0-2.1.8-2.46 1.36v-1.17H10.1c.03.7 0 8.21 0 8.21h2.63v-4.59c0-.25.02-.49.09-.67.2-.49.65-1 1.4-1 .99 0 1.39.75 1.39 1.86v4.4h2.73z"/></svg>
+        <a href="https://www.linkedin.com/in/rola-islait-725355287" target="_blank" rel="noopener">LinkedIn</a>
+      </li>
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 4 2 10l10 6 10-6Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <a href="https://scholar.google.com/citations?hl=en&user=X17jmnQAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+      </li>
+    </ul>
+  </aside>
+
+  <main>
+    <h2 id="about">About me</h2>
+    <p>I currently work as an AI Engineer at TrAIngle AI, where my work spans machine-learning research and engineering, full-stack development, and platform work, taking AI-driven software from idea to a secure, working product. Day to day that means moving between research and production: prototyping models, building the interfaces and backend systems around them, hardening security, and writing the documentation that keeps a growing codebase understandable. I like sitting close to both ends of that pipeline: the research questions that shape what a system should do, and the engineering discipline that makes it reliable enough to ship.</p>
+    <p>Alongside that, I'm a driven student passionate about artificial intelligence and machine learning, with a growing portfolio that spans competitive data science and published research. I'm the winner of the WiDS Global Datathon 2026 (High School Track), the first high school student from Jordan to receive this international recognition, and co-author of an accepted research paper applying SciBERT and Graph Neural Networks to detect AI-generated scientific content. I've also completed a wide range of specialized courses in deep learning, computer vision, generative AI, and reinforcement learning from institutions including Stanford University, DeepLearning.AI, IBM, Meta, and the University of Michigan.</p>
+    <p>TrAIngle AI is where I get to turn that research energy into real systems, working alongside the amazing founder, Maen Horani.</p>
+
+    <h2 id="research">Research</h2>
+    <p>My research sits at the intersection of NLP and graph learning, and I care about making it possible to tell trustworthy scientific writing apart from AI-generated content.</p>
+    <ul>
+      <li><b>ResearchNet:</b> a novel framework combining SciBERT embeddings with Graph Neural Networks to detect AI-generated scientific text, accepted for presentation at AEECT 2026 and to be published in IEEE Xplore, indexed in Scopus.</li>
+      <li><b>IEEE Jordan Student Paper Contest:</b> selected as one of 33 accepted papers out of 110 submissions (top 30% acceptance rate).</li>
+    </ul>
+
+    <h2 id="competitions">Competitive data science</h2>
+    <p>Five global Kaggle competitions, each placing in the top fifth of entrants or better.</p>
+    <div class="board-row">
+      <div class="board-name">BYU - Locating Bacterial Flagellar Motors
+        <span class="plat">109th of 1,136 teams</span>
+        <div class="board-track"><div class="board-fill" style="width:90.4%"></div></div>
+      </div>
+      <div class="board-pct">Top 10%</div>
+    </div>
+    <div class="board-row">
+      <div class="board-name">WiDS Datathon 2025 - Global Challenge
+        <span class="plat">156th of 1,075 teams</span>
+        <div class="board-track"><div class="board-fill" style="width:85.5%"></div></div>
+      </div>
+      <div class="board-pct">Top 15%</div>
+    </div>
+    <div class="board-row">
+      <div class="board-name">Yale / UNC-CH - Geophysical Waveform Inversion
+        <span class="plat">292nd of 1,365 teams</span>
+        <div class="board-track"><div class="board-fill" style="width:78.6%"></div></div>
+      </div>
+      <div class="board-pct">Top 21%</div>
+    </div>
+    <div class="board-row">
+      <div class="board-name">NeurIPS - Open Polymer Prediction 2025
+        <span class="plat">412th of 2,240 teams</span>
+        <div class="board-track"><div class="board-fill" style="width:81.6%"></div></div>
+      </div>
+      <div class="board-pct">Top 18%</div>
+    </div>
+    <div class="board-row">
+      <div class="board-name">Stanford - RNA 3D Folding
+        <span class="plat">593rd of 1,516 teams</span>
+        <div class="board-track"><div class="board-fill" style="width:60.9%"></div></div>
+      </div>
+      <div class="board-pct">Top 39%</div>
+    </div>
+
+    <h2 id="awards">Awards</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">May 2025</div>
+        <b>1st place, AI Sparks Hackathon</b>
+        <p>Princess Sumaya University for Technology. Won first place for AirQualityAI, a project focused on predicting air quality.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026</div>
+        <b>3rd place, Regional Robotics &amp; AI Competition</b>
+        <p>Amman Arab University, with the IEEE Jordan Section. Presented ResearchNet against university-level competitors from across the Arab world.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026</div>
+        <b>Winner, WiDS Global Datathon - High School Track</b>
+        <p>Top ranking on the competition's Kaggle leaderboard (385th of 1,754 globally), confirmed by WiDS Worldwide and Kaggle. First high school student from Jordan to receive this award at the global level.</p>
+      </div>
+    </div>
+
+    <h2 id="experience">Experience</h2>
+    <div class="exp-line">
+      <span class="role">AI Engineer - TrAIngle AI</span>
+      <span class="dates">Feb 2026 – Present</span>
+    </div>
+    <ul>
+      <li>Fixed critical security vulnerabilities in production software, including an access-control issue.</li>
+      <li>Built automated PII detection with a human-in-the-loop review step.</li>
+      <li>Designed a subscription and billing system end-to-end, integrating a third-party payment provider.</li>
+      <li>Built user-facing interfaces in React.</li>
+      <li>Authored the product's Privacy Policy and Terms of Service.</li>
+      <li>Contributed to machine-learning research, model development, and evaluation.</li>
+      <li>Supported platform and DevOps engineering, including testing, QA, and release preparation.</li>
+      <li>Maintained technical documentation across the codebase.</li>
+      <li>Worked on data- and policy-related engineering tasks.</li>
+      <li>Collaborated on integrating machine-learning models into user-facing features.</li>
+    </ul>
+
+    <h2 id="cv">CV</h2>
+    <p>My full resume is online: <a href="resume.pdf">resume.pdf</a></p>
+  </main>
+</div>
+
+<footer>
+  <div class="page footer-inner">
+    <div class="row"><span class="label">FOLLOW</span> <a href="https://www.linkedin.com/in/rola-islait-725355287" target="_blank" rel="noopener">LinkedIn</a></div>
+    <div class="row">© 2026 Rola Islait.</div>
+  </div>
+</footer>
+
+</body>
+</html>
